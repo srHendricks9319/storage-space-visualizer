@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Diagram from "./components/Diagram";
-import Form from "./components/form";
+import Form from "./components/Form";
 
 const App = () => {
   const [boxSize, setBoxSize] = useState({
