@@ -122,15 +122,15 @@ export default function Diagram({ items, boxSize }) {
       return true;
     }
 
-    function findNextPosition(item) {
-      const position = { x: 0, y: 0, z: 0 };
+    function findNextPosition(item, startPosition = { x: 0, y: 0, z: 0 }) {
+      const position = { ...startPosition };
       if (prioritizeStacking) {
         let supportChecked = false;
         for (let j = 0; j < grid[0].length; j++) {
-          position.x = j;
+          position.z = j;
           supportChecked = false;
           for (let k = 0; k < grid[0][0].length; k++) {
-            position.z = k;
+            position.x = k;
             supportChecked = false;
             if (!supportChecked) {
               for (let i = 0; i < grid.length; i++) {
@@ -151,9 +151,9 @@ export default function Diagram({ items, boxSize }) {
         for (let j = 0; j < grid[0].length; j++) {
           for (let k = 0; k < grid[0][0].length; k++) {
             const position = {
-              x: j,
+              x: k,
               y: i,
-              z: k,
+              z: j,
             };
             if (canPlace(item, position)) return position;
           }
@@ -162,12 +162,14 @@ export default function Diagram({ items, boxSize }) {
       return null;
     }
 
+    let currentPosition = { x: 0, y: 0, z: 0 };
     const finalPositions = items
       .sort((a, b) => b.depth * b.width - a.depth * a.width)
       .map((item) => {
-        const position = findNextPosition(item);
+        const position = findNextPosition(item, currentPosition);
         if (position) {
           placeItem(item, position);
+          currentPosition = position;
           return { ...item, position };
         } else {
           console.error(`Could not place ${item.name}`);
