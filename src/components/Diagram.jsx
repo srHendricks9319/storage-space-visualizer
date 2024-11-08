@@ -56,9 +56,9 @@ export default function Diagram({ items, boxSize }) {
             };
             if (
               position.y > grid.length - 1 ||
-              position.x > grid[0].length - 1 ||
-              position.z > grid[0][0].length - 1 ||
-              grid[position.y][position.x][position.z]
+              position.z > grid[0].length - 1 ||
+              position.x > grid[0][0].length - 1 ||
+              grid[position.y][position.z][position.x]
             )
               return false;
           }
@@ -81,25 +81,7 @@ export default function Diagram({ items, boxSize }) {
               y: y + j,
               z: z + k,
             };
-            if (
-              position.y > grid.length ||
-              position.x > grid[0].length ||
-              position.z > grid[0][0].length
-            ) {
-              console.error(
-                `Item: ${item.name} at position out of bounds: ${JSON.stringify(
-                  position
-                )}`
-              );
-            }
-            if (grid[position.y][position.x][position.z]) {
-              console.error(
-                `Item: ${
-                  item.name
-                } at position already occupied: ${JSON.stringify(position)}`
-              );
-            }
-            grid[position.y][position.x][position.z] = item.id;
+            grid[position.y][position.z][position.x] = item.id;
           }
         }
       }
