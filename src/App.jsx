@@ -46,7 +46,7 @@ const App = () => {
                 type="number"
                 className="ml-2"
                 value={boxSize.depth}
-                onChange={(e) =>
+                onBlur={(e) =>
                   setBoxSize({ ...boxSize, depth: parseInt(e.target.value) })
                 }
               />
@@ -57,7 +57,7 @@ const App = () => {
                 type="number"
                 className="ml-2"
                 value={boxSize.width}
-                onChange={(e) =>
+                onBlur={(e) =>
                   setBoxSize({ ...boxSize, width: parseInt(e.target.value) })
                 }
               />
@@ -68,7 +68,7 @@ const App = () => {
                 type="number"
                 className="ml-2"
                 value={boxSize.height}
-                onChange={(e) =>
+                onBlur={(e) =>
                   setBoxSize({ ...boxSize, height: parseInt(e.target.value) })
                 }
               />
