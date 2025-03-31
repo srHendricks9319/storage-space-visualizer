@@ -10,6 +10,7 @@ const App = () => {
     width: 120,
     height: 120,
   });
+  const [tempBoxSize, setTempBoxSize] = useState({ ...boxSize });
   const [items, setItems] = useState([]);
 
   const handleAddItem = (item) => {
@@ -18,6 +19,14 @@ const App = () => {
 
   const handleDeleteItems = (item) => {
     setItems(items.filter((f) => f.name !== item.name));
+  };
+
+  const handleInputChange = (e, dimension) => {
+    setTempBoxSize({ ...tempBoxSize, [dimension]: e.target.value });
+  };
+
+  const handleInputBlur = (dimension) => {
+    setBoxSize({ ...boxSize, [dimension]: parseInt(tempBoxSize[dimension]) });
   };
 
   return (
@@ -45,10 +54,9 @@ const App = () => {
               <input
                 type="number"
                 className="ml-2"
-                value={boxSize.depth}
-                onBlur={(e) =>
-                  setBoxSize({ ...boxSize, depth: parseInt(e.target.value) })
-                }
+                value={tempBoxSize.depth}
+                onChange={(e) => handleInputChange(e, "depth")}
+                onBlur={() => handleInputBlur("depth")}
               />
             </label>
             <label>
@@ -56,10 +64,9 @@ const App = () => {
               <input
                 type="number"
                 className="ml-2"
-                value={boxSize.width}
-                onBlur={(e) =>
-                  setBoxSize({ ...boxSize, width: parseInt(e.target.value) })
-                }
+                value={tempBoxSize.width}
+                onChange={(e) => handleInputChange(e, "width")}
+                onBlur={() => handleInputBlur("width")}
               />
             </label>
             <label>
@@ -67,10 +74,9 @@ const App = () => {
               <input
                 type="number"
                 className="ml-2"
-                value={boxSize.height}
-                onBlur={(e) =>
-                  setBoxSize({ ...boxSize, height: parseInt(e.target.value) })
-                }
+                value={tempBoxSize.height}
+                onChange={(e) => handleInputChange(e, "height")}
+                onBlur={() => handleInputBlur("height")}
               />
             </label>
           </div>
